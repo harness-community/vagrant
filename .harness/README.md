@@ -19,15 +19,12 @@ This repository contains over 5,000 Ruby rspec tests. Follow these steps to expe
 
 4. To enable Ruby Test Intelligence support in your Harness account, check the [Enable TI for Ruby](https://developer.harness.io/docs/continuous-integration/use-ci/run-tests/test-intelligence/ti-for-ruby/) documentation.
 
-5. Insert this YAML into your pipeline's `stages` section, which [splits tests](https://developer.harness.io/docs/continuous-integration/use-ci/run-tests/test-intelligence/ti-test-splitting/) into two stages with TI enabled, then save your pipeline.
+5. Insert this YAML into your pipeline's `stages` section.
 
 ```yaml
     - stage:
         strategy:
           parallelism: 2
-        when:
-          pipelineStatus: Success
-          condition: <+ trigger.event > == "PR"
         name: test
         identifier: test
         type: CI
@@ -56,6 +53,8 @@ This repository contains over 5,000 Ruby rspec tests. Follow these steps to expe
                   spec:
                     shell: Sh
                     command: |-
+                      echo "require_relative '/tmp/engine/ruby/harness/ruby-agent/test_intelligence.rb'" >> lib/vagrant/shared_helpers.rb
+                      echo "require_relative '/tmp/engine/ruby/harness/ruby-agent/test_intelligence.rb'" >> test/unit/vagrant_test.rb
                       apt-get update -y
                       apt -y install libarchive-tools
                       bundle install
@@ -71,12 +70,14 @@ This repository contains over 5,000 Ruby rspec tests. Follow these steps to expe
                     enableTestSplitting: true
 ```
 
+5. The repository already contains a GitHub Actions [workflow file](../.github/workflows/demo.yml). You can choose to enable this workflow from the Actions tab on GitHub.
+
 6. Trigger a pipeline that runs all Ruby tests to generate an [initial call graph](https://developer.harness.io/docs/continuous-integration/use-ci/run-tests/set-up-test-intelligence/#generate-the-initial-call-graph).
 
-   Commit a change to the [README.md](../README.md) file in a branch and open a pull request. This will trigger your pipeline in Harness CI and run all Ruby tests in the repository, which will take about eight minutes. When the pipeline has completed, merge your change to the ‘main’ branch.
+   Commit a change to the [README.md](../README.md) file in a branch and open a pull request. This will trigger your pipeline in Harness CI and run all Ruby tests in the repository, which will take about eight minutes. When the pipeline has completed, merge your change to the 'main' branch.
 
    This sets a "baseline" for test selection in future pipeline executions.
 
 7. Next, make a change to a Ruby file and open a pull request.
 
-   Add a comment to the file [lib/vagrant/plugin/v2/components.rb](../lib/vagrant/plugin/v2/components.rb) in a new branch and open a pull request (see [this example](https://github.com/harness-community/vagrant/pull/3/files)). This will trigger your pipeline in Harness CI, only the subset of tests which are relevant to this code change will run, split between two stages.
+   Add a comment to the file [lib/vagrant/plugin/v2/components.rb](../lib/vagrant/plugin/v2/components.rb) in a new branch and open a pull request (see [this example](https://github.com/harness-community/vagrant/pull/3/files)). This will trigger your pipeline in Harness CI as well as GitHub Actions enabledin step 5. Only the subset of tests which are relevant to this code change will run, split between two stages. However, the GitHub Actions workflow will run all the unit tests for every PR.

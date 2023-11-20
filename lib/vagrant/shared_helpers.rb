@@ -310,5 +310,3 @@ module Vagrant
   ].freeze
 end
 
-# temporary workaround for TI
-require_relative '/tmp/engine/ruby/harness/ruby-agent/test_intelligence.rb'
