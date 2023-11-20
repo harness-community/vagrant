@@ -53,8 +53,6 @@ This repository contains over 5,000 Ruby rspec tests. Follow these steps to expe
                   spec:
                     shell: Sh
                     command: |-
-                      echo "require_relative '/tmp/engine/ruby/harness/ruby-agent/test_intelligence.rb'" >> lib/vagrant/shared_helpers.rb
-                      echo "require_relative '/tmp/engine/ruby/harness/ruby-agent/test_intelligence.rb'" >> test/unit/vagrant_test.rb
                       apt-get update -y
                       apt -y install libarchive-tools
                       bundle install
