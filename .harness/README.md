@@ -74,7 +74,7 @@ This repository contains over 5,000 Ruby rspec tests. Follow these steps to expe
 
 6. Trigger a pipeline that runs all Ruby tests to generate an [initial call graph](https://developer.harness.io/docs/continuous-integration/use-ci/run-tests/set-up-test-intelligence/#generate-the-initial-call-graph).
 
-   Commit a change to the [README.md](../README.md) file in a branch and open a pull request. This will trigger your pipeline in Harness CI and run all Ruby tests in the repository, which will take about eight minutes. When the pipeline has completed, merge your change to the 'main' branch.
+   Commit a change to [Gemfile](../Gemfile) file (e.g. add a comment or new line) in a branch and open a pull request. This will trigger your pipeline in Harness CI and run all Ruby tests in the repository, which will take about eight minutes. When the pipeline has completed, merge your change to the 'main' branch.
 
    This sets a "baseline" for test selection in future pipeline executions.
 
