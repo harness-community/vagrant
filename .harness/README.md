@@ -80,4 +80,4 @@ This repository contains over 5,000 Ruby rspec tests. Follow these steps to expe
 
 7. Next, make a change to a Ruby file and open a pull request.
 
-   Add a comment to the file [lib/vagrant/plugin/v2/components.rb](../lib/vagrant/plugin/v2/components.rb) in a new branch and open a pull request (see [this example](https://github.com/harness-community/vagrant/pull/3/files)). This will trigger your pipeline in Harness CI as well as GitHub Actions enabledin step 5. Only the subset of tests which are relevant to this code change will run, split between two stages. However, the GitHub Actions workflow will run all the unit tests for every PR.
+   Add a comment to the file [lib/vagrant/plugin/v2/components.rb](../lib/vagrant/plugin/v2/components.rb) in a new branch and open a pull request (see [this example](https://github.com/harness-community/vagrant/pull/3/files)). This will trigger your pipeline in Harness CI as well as GitHub Actions (enabled in step 5). Only the subset of tests which are relevant to this code change will run, split between two stages. However, the GitHub Actions workflow will run all the unit tests for every PR.
